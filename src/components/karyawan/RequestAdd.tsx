@@ -90,15 +90,12 @@ export default function RequestKaryawanForm() {
 
         <div className="flex justify-end gap-3">
           <Button
-            type="button"
             variant="outline"
             onClick={() => navigate("/pengajuan-karyawan")}
           >
             Batal
           </Button>
-          <Button type="submit" color="primary">
-            Simpan
-          </Button>
+          <Button type="submit">Simpan</Button>
         </div>
       </form>
     </div>

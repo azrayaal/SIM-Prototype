@@ -57,9 +57,7 @@ export default function RequestKaryawanTable() {
           Daftar Pengajuan Karyawan
         </h2>
         <Link to="/pengajuan-karyawan/tambah">
-          <Button size="sm" color="primary">
-            + Tambah Pengajuan
-          </Button>
+          <Button size="sm">+ Tambah Pengajuan</Button>
         </Link>
       </div>
 
