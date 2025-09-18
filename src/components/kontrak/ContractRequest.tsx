@@ -66,15 +66,32 @@ export default function ContractRequestTable() {
               <TableCell isHeader>Action</TableCell>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {kontrakData.map((k) => (
-              <TableRow key={k.id}>
-                <TableCell>{k.id}</TableCell>
-                <TableCell>{k.nama}</TableCell>
-                <TableCell>{k.posisi}</TableCell>
-                <TableCell>{k.startDate}</TableCell>
-                <TableCell>{k.endDate}</TableCell>
-                <TableCell>
+          <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+            {kontrakData.map((k, i) => (
+              <TableRow
+                key={k.id}
+                className={
+                  i % 2 === 0
+                    ? "bg-white dark:bg-white/[0.02]"
+                    : "bg-gray-50 dark:bg-white/[0.01]"
+                }
+              >
+                <TableCell className="px-5 py-3 text-center text-sm font-medium text-gray-600 dark:text-gray-300">
+                  {k.id}
+                </TableCell>
+                <TableCell className="px-5 py-3 text-sm text-center text-gray-800 dark:text-white">
+                  {k.nama}
+                </TableCell>
+                <TableCell className="px-5 py-3 text-sm text-center text-gray-600 dark:text-gray-300">
+                  {k.posisi}
+                </TableCell>
+                <TableCell className="px-5 py-3 text-center text-sm text-gray-600 dark:text-gray-300">
+                  {k.startDate}
+                </TableCell>
+                <TableCell className="px-5 py-3 text-center text-sm text-gray-600 dark:text-gray-300">
+                  {k.endDate}
+                </TableCell>
+                <TableCell className="px-5 py-3 text-center">
                   <Badge
                     size="sm"
                     color={
@@ -88,9 +105,11 @@ export default function ContractRequestTable() {
                     {k.status}
                   </Badge>
                 </TableCell>
-                <TableCell>
+                <TableCell className="px-5 py-3 text-center">
                   <Link to={`/kontrak/${k.id}`}>
-                    <Button size="sm">Detail</Button>
+                    <Button size="sm" className="rounded-lg px-3">
+                      Detail
+                    </Button>
                   </Link>
                 </TableCell>
               </TableRow>
