@@ -318,22 +318,21 @@ const AppSidebar: React.FC = () => {
       >
         <Link to="/">
           {isExpanded || isHovered || isMobileOpen ? (
-            <>
+            <div className="flex items-center justify-center">
               <img
-                className="dark:hidden"
-                src="/images/logo/logo.svg"
+                className="dark:hidden mr-2"
+                src="/images/logo/sim.png"
                 alt="Logo"
-                width={150}
-                height={40}
+                // width={150}
+                // height={40}
               />
               <img
-                className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                className="hidden dark:block mr-2"
+                src="/images/logo/sim.png"
                 alt="Logo"
-                width={150}
-                height={40}
               />
-            </>
+              Swakarya Insan Mandiri
+            </div>
           ) : (
             <img
               src="/images/logo/logo-icon.svg"
