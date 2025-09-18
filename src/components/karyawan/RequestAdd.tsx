@@ -95,7 +95,7 @@ export default function RequestKaryawanForm() {
           >
             Batal
           </Button>
-          <Button type="submit">Simpan</Button>
+          <Button variant="primary">Simpan</Button>
         </div>
       </form>
     </div>
