@@ -26,6 +26,12 @@ import RequestKaryawanForm from "./components/karyawan/RequestAdd";
 import ContractList from "./pages/Contract/ContractList";
 import ContractRequest from "./pages/Contract/ContractRequest";
 import KontrakDetail from "./components/kontrak/detail/ContractListDetail";
+import RequestTableList from "./pages/Absent/Request/RequestList";
+import LeaveRequestList from "./pages/Absent/Request/LeaveRequest";
+import OvertimeRequestList from "./pages/Absent/Request/OvertimeRequest";
+import RequestTableList2 from "./pages/Absent/Approval/RequestList";
+import LeaveRequestList2 from "./pages/Absent/Approval/LeaveRequest";
+import OvertimeRequestList2 from "./pages/Absent/Approval/OvertimeRequest";
 
 export default function App() {
   return (
@@ -55,10 +61,6 @@ export default function App() {
             <Route path="/kontrak/:id" element={<KontrakDetail />} />
             <Route path="/pengajuan-kontrak" element={<ContractRequest />} />
             <Route
-              path="/pengajuan-kontrak/:id"
-              element={<ContractRequest />}
-            />
-            <Route
               path="/pengajuan-kontrak/tambah"
               element={<ContractRequest />}
             />
@@ -82,6 +84,18 @@ export default function App() {
             {/* Charts */}
             <Route path="/line-chart" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />
+
+            {/* Absent */}
+            <Route path="/pengajuan-absen" element={<RequestTableList />} />
+            <Route path="/pengajuan-cuti" element={<LeaveRequestList />} />
+            <Route path="/pengajuan-lembur" element={<OvertimeRequestList />} />
+
+            <Route path="/konfirmasi-absen" element={<RequestTableList2 />} />
+            <Route path="/konfirmasi-cuti" element={<LeaveRequestList2 />} />
+            <Route
+              path="/konfirmasi-lembur"
+              element={<OvertimeRequestList2 />}
+            />
           </Route>
 
           {/* Auth Layout */}

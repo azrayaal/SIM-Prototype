@@ -10,23 +10,22 @@ import Badge from "../../ui/badge/Badge";
 import Button from "../../ui/button/Button";
 import { Link } from "react-router";
 
-interface Order {
+interface Payroll {
   id: number;
   user: {
     image: string;
     name: string;
     role: string;
   };
-  projectName: string;
-  team: {
-    images: string[];
-  };
-  status: string;
-  budget: string;
+  division: string;
+  basicSalary: string;
+  allowance: string;
+  deduction: string;
+  total: string;
+  status: "Paid" | "Pending" | "Unpaid";
 }
 
-// Define the table data using the interface
-const tableData: Order[] = [
+const payrollData: Payroll[] = [
   {
     id: 1,
     user: {
@@ -34,16 +33,12 @@ const tableData: Order[] = [
       name: "Lindsey Curtis",
       role: "Web Designer",
     },
-    projectName: "Agency Website",
-    team: {
-      images: [
-        "/images/user/user-22.jpg",
-        "/images/user/user-23.jpg",
-        "/images/user/user-24.jpg",
-      ],
-    },
-    budget: "3.9K",
-    status: "Active",
+    division: "Creative",
+    basicSalary: "5.000.000",
+    allowance: "500.000",
+    deduction: "200.000",
+    total: "5.300.000",
+    status: "Paid",
   },
   {
     id: 2,
@@ -52,66 +47,30 @@ const tableData: Order[] = [
       name: "Kaiya George",
       role: "Project Manager",
     },
-    projectName: "Technology",
-    team: {
-      images: ["/images/user/user-25.jpg", "/images/user/user-26.jpg"],
-    },
-    budget: "24.9K",
+    division: "Management",
+    basicSalary: "10.000.000",
+    allowance: "1.200.000",
+    deduction: "300.000",
+    total: "10.900.000",
     status: "Pending",
   },
   {
     id: 3,
     user: {
-      image: "/images/user/user-17.jpg",
-      name: "Zain Geidt",
-      role: "Content Writing",
-    },
-    projectName: "Blog Writing",
-    team: {
-      images: ["/images/user/user-27.jpg"],
-    },
-    budget: "12.7K",
-    status: "Active",
-  },
-  {
-    id: 4,
-    user: {
       image: "/images/user/user-20.jpg",
       name: "Abram Schleifer",
       role: "Digital Marketer",
     },
-    projectName: "Social Media",
-    team: {
-      images: [
-        "/images/user/user-28.jpg",
-        "/images/user/user-29.jpg",
-        "/images/user/user-30.jpg",
-      ],
-    },
-    budget: "2.8K",
-    status: "Inactive",
-  },
-  {
-    id: 5,
-    user: {
-      image: "/images/user/user-21.jpg",
-      name: "Carla George",
-      role: "Front-end Developer",
-    },
-    projectName: "Website",
-    team: {
-      images: [
-        "/images/user/user-31.jpg",
-        "/images/user/user-32.jpg",
-        "/images/user/user-33.jpg",
-      ],
-    },
-    budget: "4.5K",
-    status: "Active",
+    division: "Marketing",
+    basicSalary: "6.500.000",
+    allowance: "750.000",
+    deduction: "100.000",
+    total: "7.150.000",
+    status: "Unpaid",
   },
 ];
 
-export default function BasicTableOne() {
+export default function PayrollTable() {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
@@ -129,23 +88,41 @@ export default function BasicTableOne() {
                 isHeader
                 className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Division
+                Divisi
               </TableCell>
               <TableCell
                 isHeader
-                className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
               >
-                Team
+                Gaji Pokok
               </TableCell>
               <TableCell
                 isHeader
-                className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
+              >
+                Tunjangan
+              </TableCell>
+              <TableCell
+                isHeader
+                className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
+              >
+                Potongan
+              </TableCell>
+              <TableCell
+                isHeader
+                className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
+              >
+                Total
+              </TableCell>
+              <TableCell
+                isHeader
+                className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
               >
                 Status
               </TableCell>
               <TableCell
                 isHeader
-                className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                className="px-5 py-3 font-medium text-gray-500 text-center text-theme-xs dark:text-gray-400"
               >
                 Action
               </TableCell>
@@ -154,67 +131,61 @@ export default function BasicTableOne() {
 
           {/* Table Body */}
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {tableData.map((order) => (
-              <TableRow key={order.id}>
+            {payrollData.map((item) => (
+              <TableRow key={item.id}>
                 <TableCell className="px-5 py-4 sm:px-6 text-start">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 overflow-hidden rounded-full">
                       <img
                         width={40}
                         height={40}
-                        src={order.user.image}
-                        alt={order.user.name}
+                        src={item.user.image}
+                        alt={item.user.name}
                       />
                     </div>
                     <div>
                       <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                        {order.user.name}
+                        {item.user.name}
                       </span>
                       <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
-                        {order.user.role}
+                        {item.user.role}
                       </span>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  {order.projectName}
+                  {item.division}
                 </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  <div className="flex -space-x-2">
-                    {order.team.images.map((teamImage, index) => (
-                      <div
-                        key={index}
-                        className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900"
-                      >
-                        <img
-                          width={24}
-                          height={24}
-                          src={teamImage}
-                          alt={`Team member ${index + 1}`}
-                          className="w-full size-6"
-                        />
-                      </div>
-                    ))}
-                  </div>
+                <TableCell className="px-4 py-3 text-gray-800 text-center text-theme-sm dark:text-white/90">
+                  Rp {item.basicSalary}
                 </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                <TableCell className="px-4 py-3 text-gray-800 text-center text-theme-sm dark:text-white/90">
+                  Rp {item.allowance}
+                </TableCell>
+                <TableCell className="px-4 py-3 text-gray-800 text-center text-theme-sm dark:text-white/90">
+                  Rp {item.deduction}
+                </TableCell>
+                <TableCell className="px-4 py-3 font-semibold text-gray-900 text-center text-theme-sm dark:text-white">
+                  Rp {item.total}
+                </TableCell>
+                <TableCell className="px-4 py-3 text-center">
                   <Badge
                     size="sm"
                     color={
-                      order.status === "Active"
+                      item.status === "Paid"
                         ? "success"
-                        : order.status === "Pending"
+                        : item.status === "Pending"
                         ? "warning"
                         : "error"
                     }
                   >
-                    {order.status}
+                    {item.status}
                   </Badge>
                 </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                  <div className="flex items-center gap-3">
-                    <Link to={`/detail-employee`}>
-                      <Button>Detail</Button>
+                <TableCell className="px-4 py-3 text-center">
+                  <div className="flex items-center justify-center gap-3">
+                    <Link to={`/slip-gaji/${item.id}`}>
+                      <Button size="sm">Slip Gaji</Button>
                     </Link>
                   </div>
                 </TableCell>

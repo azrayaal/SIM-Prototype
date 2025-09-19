@@ -53,18 +53,18 @@ const navItems: NavItem[] = [
     name: "Absensi",
     icon: <DocsIcon />,
     subItems: [
-      { name: "Pengajuan Absen", path: "/blank", pro: false },
-      { name: "Pengajuan Cuti", path: "/blank", pro: false },
-      { name: "Pengajuan Lembur", path: "/blank", pro: false },
+      { name: "Pengajuan Absen", path: "/pengajuan-absen", pro: false },
+      { name: "Pengajuan Cuti", path: "/pengajuan-cuti", pro: false },
+      { name: "Pengajuan Lembur", path: "/pengajuan-lembur", pro: false },
     ],
   },
   {
     name: "Persetujuan",
     icon: <TableIcon />,
     subItems: [
-      { name: "Konfirmasi Absen", path: "/blank", pro: false },
-      { name: "Konfirmasi Cuti", path: "/blank", pro: false },
-      { name: "Konfirmasi Lembur", path: "/blank", pro: false },
+      { name: "Konfirmasi Absen", path: "/konfirmasi-absen", pro: false },
+      { name: "Konfirmasi Cuti", path: "/konfirmasi-cuti", pro: false },
+      { name: "Konfirmasi Lembur", path: "/konfirmasi-lembur", pro: false },
     ],
   },
   {
