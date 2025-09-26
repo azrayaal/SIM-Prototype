@@ -13,13 +13,10 @@ export default function Employee360Card() {
   };
 
   return (
-    <div className="p-6 border border-gray-200 rounded-2xl dark:border-gray-800">
+    <div>
       {/* HEADER */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-            Employee Profile
-          </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Comprehensive employee details and history
           </p>
@@ -67,9 +64,52 @@ export default function Employee360Card() {
           <Info label="Position" value="Lead Engineer" />
           <Info label="Employment Type" value="Full-time" />
           <Info label="Start Date" value="01 March 2020" />
-          <Info label="Contract End" value="N/A" />
           <Info label="Manager" value="John Doe" />
         </Grid>
+
+        {/* CONTRACT DETAILS */}
+        <div className="mt-6">
+          <h6 className="mb-2 text-sm font-semibold text-gray-700 dark:text-white/80">
+            Contract Details
+          </h6>
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between p-4 rounded-lg bg-gray-50 dark:bg-gray-800/50">
+            <div>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Contract Period
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                01 March 2020 – 01 March 2025
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Remaining Time
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                5 months left
+              </p>
+            </div>
+            <div>
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700 dark:bg-green-800/40 dark:text-green-400">
+                Active
+              </span>
+            </div>
+          </div>
+
+          {/* Timeline Progress */}
+          <div className="mt-4 relative">
+            <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-700">
+              <div
+                className="h-2 rounded-full bg-blue-500"
+                style={{ width: "80%" }}
+              ></div>
+            </div>
+            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-2">
+              <span>01 Mar 2020</span>
+              <span>01 Mar 2025</span>
+            </div>
+          </div>
+        </div>
       </Card>
 
       {/* HISTORY */}
@@ -138,9 +178,14 @@ export default function Employee360Card() {
             <Section title="Employment Information">
               <InputRow label="Department" value="Product Development" />
               <InputRow label="Position" value="Lead Engineer" />
-              <InputRow label="Start Date" type="date" value="2020-03-01" />
               <InputRow label="Employment Type" value="Full-time" />
               <InputRow label="Manager" value="John Doe" />
+            </Section>
+
+            <Section title="Contract Details">
+              <InputRow label="Start Date" type="date" value="2020-03-01" />
+              <InputRow label="End Date" type="date" value="2025-03-01" />
+              <InputRow label="Status" value="Active" />
             </Section>
 
             <Section title="Social Links">

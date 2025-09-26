@@ -1,13 +1,6 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
 import { Link } from "react-router";
-import Badge from "../ui/badge/Badge";
 import Button from "../ui/button/Button";
+import Badge from "../ui/badge/Badge";
 
 interface Kontrak {
   id: number;
@@ -15,108 +8,116 @@ interface Kontrak {
   posisi: string;
   startDate: string;
   endDate: string;
-  status: "Aktif" | "Habis" | "Diperpanjang";
+  status: "Aktif" | "Habis" | "Diperpanjang" | "Menunggu Konfirmasi";
 }
 
-const kontrakData: Kontrak[] = [
+interface Request {
+  id: number;
+  tujuan: string;
+  divisi: string;
+  jumlah: number;
+  lamaKontrak: string;
+  status: string;
+  kontrakList: Kontrak[];
+}
+
+const requestData: Request[] = [
   {
-    id: 201,
-    nama: "Budi Santoso",
-    posisi: "Frontend Developer",
-    startDate: "2024-09-01",
-    endDate: "2025-09-01",
-    status: "Aktif",
+    id: 501,
+    tujuan: "Ekspansi Cabang Surabaya",
+    divisi: "Customer Service",
+    jumlah: 1,
+    status: "Menunggu Konfirmasi",
+    lamaKontrak: "12 Bulan",
+    kontrakList: [
+      {
+        id: 201,
+        nama: "Budi Santoso",
+        posisi: "Customer Service",
+        startDate: "2025-10-01",
+        endDate: "2026-10-01",
+        status: "Menunggu Konfirmasi",
+      },
+    ],
   },
   {
-    id: 202,
-    nama: "Siti Aisyah",
-    posisi: "Digital Marketer",
-    startDate: "2023-09-15",
-    endDate: "2024-09-15",
-    status: "Habis",
-  },
-  {
-    id: 203,
-    nama: "Andi Wijaya",
-    posisi: "Customer Service",
-    startDate: "2024-01-10",
-    endDate: "2025-01-10",
-    status: "Diperpanjang",
+    id: 502,
+    tujuan: "Project Digital Marketing",
+    divisi: "Marketing",
+    jumlah: 3,
+    lamaKontrak: "6 Bulan",
+    status: "Menunggu Konfirmasi",
+    kontrakList: [
+      {
+        id: 202,
+        nama: "Siti Aisyah",
+        posisi: "Digital Marketer",
+        startDate: "2025-09-15",
+        endDate: "2026-03-15",
+        status: "Aktif",
+      },
+      {
+        id: 203,
+        nama: "Andi Wijaya",
+        posisi: "Digital Marketer",
+        startDate: "2025-09-15",
+        endDate: "2026-03-15",
+        status: "Menunggu Konfirmasi",
+      },
+      {
+        id: 204,
+        nama: "Ratna Dewi",
+        posisi: "Digital Marketer",
+        startDate: "2025-09-15",
+        endDate: "2026-03-15",
+        status: "Menunggu Konfirmasi",
+      },
+    ],
   },
 ];
 
-export default function ContractListTable() {
+export default function RequestKontrakList() {
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-      <div className="flex justify-between items-center px-5 py-4 border-b border-gray-100 dark:border-white/[0.05]">
-        <h2 className="font-semibold text-gray-700 dark:text-white">
-          Daftar Kontrak Karyawan
-        </h2>
-      </div>
-      <div className="max-w-full overflow-x-auto">
-        <Table>
-          <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
-            <TableRow>
-              <TableCell isHeader>No.</TableCell>
-              <TableCell isHeader>Nama</TableCell>
-              <TableCell isHeader>Posisi</TableCell>
-              <TableCell isHeader>Mulai</TableCell>
-              <TableCell isHeader>Berakhir</TableCell>
-              <TableCell isHeader>Status</TableCell>
-              <TableCell isHeader>Action</TableCell>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {kontrakData.map((k, i) => (
-              <TableRow
-                key={k.id}
-                className={
-                  i % 2 === 0
-                    ? "bg-white dark:bg-white/[0.02]"
-                    : "bg-gray-50 dark:bg-white/[0.01]"
-                }
-              >
-                <TableCell className="px-5 py-3 text-center text-sm font-medium text-gray-600 dark:text-gray-300">
-                  {k.id}
-                </TableCell>
-                <TableCell className="px-5 py-3 text-sm text-center text-gray-800 dark:text-white">
-                  {k.nama}
-                </TableCell>
-                <TableCell className="px-5 py-3 text-sm text-center text-gray-600 dark:text-gray-300">
-                  {k.posisi}
-                </TableCell>
-                <TableCell className="px-5 py-3 text-center text-sm text-gray-600 dark:text-gray-300">
-                  {k.startDate}
-                </TableCell>
-                <TableCell className="px-5 py-3 text-center text-sm text-gray-600 dark:text-gray-300">
-                  {k.endDate}
-                </TableCell>
-                <TableCell className="px-5 py-3 text-center">
-                  <Badge
-                    size="sm"
-                    color={
-                      k.status === "Aktif"
-                        ? "success"
-                        : k.status === "Habis"
-                        ? "error"
-                        : "warning"
-                    }
-                  >
-                    {k.status}
-                  </Badge>
-                </TableCell>
-                <TableCell className="px-5 py-3 text-center">
-                  <Link to={`/kontrak/${k.id}`}>
-                    <Button size="sm" className="rounded-lg px-3">
-                      Detail
-                    </Button>
+    <div className="p-6 bg-white dark:bg-white/[0.03] rounded-xl border border-gray-200 dark:border-white/[0.05]">
+      <h2 className="text-lg font-semibold mb-4">Daftar Pengajuan Kontrak</h2>
+
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr className="border-b text-gray-600 dark:text-gray-300">
+            <th className="px-3 py-2">No</th>
+            <th className="px-3 py-2">Tujuan</th>
+            <th className="px-3 py-2">Divisi</th>
+            <th className="px-3 py-2">Jumlah Kontrak</th>
+            <th className="px-3 py-2">Lama Kontrak</th>
+            <th className="px-3 py-2">Status</th>
+            <th className="px-3 py-2">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requestData.map((req, idx) => (
+            <tr key={req.id} className="border-b">
+              <td className="px-3 py-2 text-center">{idx + 1}</td>
+              <td className="px-3 py-2 text-center">{req.tujuan}</td>
+              <td className="px-3 py-2 text-center">{req.divisi}</td>
+              <td className="px-3 py-2 text-center">{req.jumlah}</td>
+              <td className="px-3 py-2 text-center">{req.lamaKontrak}</td>
+              <td className="px-3 py-2 text-center">{req.status}</td>
+              <td className="px-3 py-2 text-center space-x-2">
+                {req.kontrakList.length === 1 ? (
+                  <>
+                    <Button color="success">Approve</Button>
+                    <Button color="error">Reject</Button>
+                  </>
+                ) : (
+                  <Link to={`/kontrak/${req.id}`}>
+                    <Button>Detail</Button>
                   </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

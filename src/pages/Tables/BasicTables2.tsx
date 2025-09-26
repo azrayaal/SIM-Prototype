@@ -4,77 +4,75 @@ import ComponentCard from "../../components/common/ComponentCard";
 import PageMeta from "../../components/common/PageMeta";
 import Button from "../../components/ui/button/Button";
 
-interface PayrollItem {
+interface InvoiceItem {
   id: number;
+  noInvoice: string;
   periode: string;
-  divisi: string;
-  jumlahKaryawan: number;
-  statusKonfirmasi: "Pending" | "Dikonfirmasi" | "Revisi";
-  statusPayroll: "Proses" | "Ready to Pay" | "Selesai";
-  tanggalKonfirmasi?: string;
+  tanggalTerbit: string;
+  nominal: string;
+  status: "Draft" | "Final" | "Paid" | "Outstanding";
+  tanggalBayar?: string;
 }
 
-const dummyPayroll: PayrollItem[] = [
+const dummyInvoice: InvoiceItem[] = [
   {
     id: 1,
+    noInvoice: "INV-2025-09-001",
     periode: "September 2025",
-    divisi: "IT Development",
-    jumlahKaryawan: 12,
-    statusKonfirmasi: "Dikonfirmasi",
-    statusPayroll: "Ready to Pay",
-    tanggalKonfirmasi: "2025-09-15",
+    tanggalTerbit: "2025-09-05",
+    nominal: "Rp 320.000.000",
+    status: "Final",
+    tanggalBayar: "2025-09-20",
   },
   {
     id: 2,
+    noInvoice: "INV-2025-09-002",
     periode: "September 2025",
-    divisi: "Marketing",
-    jumlahKaryawan: 8,
-    statusKonfirmasi: "Pending",
-    statusPayroll: "Proses",
+    tanggalTerbit: "2025-09-10",
+    nominal: "Rp 150.000.000",
+    status: "Outstanding",
   },
 ];
 
-export default function PayrollList() {
-  const [selected, setSelected] = useState<PayrollItem | null>(null);
+export default function InvoiceList() {
+  const [selected, setSelected] = useState<InvoiceItem | null>(null);
 
   return (
     <>
       <PageMeta
-        title="Penggajian | Client Portal PT SIM"
-        description="Halaman penggajian client portal PT SIM"
+        title="Invoicing | Client Portal PT SIM"
+        description="Halaman invoicing client portal PT SIM"
       />
-      <PageBreadcrumb pageTitle="Penggajian" />
+      <PageBreadcrumb pageTitle="Invoicing" />
 
       <div className="space-y-6">
-        <ComponentCard title="Daftar Penggajian">
+        <ComponentCard title="Daftar Invoice">
           <table className="w-full text-sm text-left border-collapse">
             <thead>
               <tr className="border-b text-gray-600 dark:text-gray-300">
+                <th className="px-4 py-2">No. Invoice</th>
                 <th className="px-4 py-2">Periode</th>
-                <th className="px-4 py-2">Divisi</th>
-                <th className="px-4 py-2">Jumlah Karyawan</th>
-                <th className="px-4 py-2">Status Konfirmasi</th>
-                <th className="px-4 py-2">Status Payroll</th>
+                <th className="px-4 py-2">Tanggal Terbit</th>
+                <th className="px-4 py-2">Nominal</th>
+                <th className="px-4 py-2">Status</th>
                 <th className="px-4 py-2">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              {dummyPayroll.map((row) => (
+              {dummyInvoice.map((row) => (
                 <tr
                   key={row.id}
                   className="border-b hover:bg-gray-50 dark:hover:bg-white/[0.05]"
                 >
+                  <td className="px-4 py-2">{row.noInvoice}</td>
                   <td className="px-4 py-2">{row.periode}</td>
-                  <td className="px-4 py-2">{row.divisi}</td>
-                  <td className="px-4 py-2">{row.jumlahKaryawan}</td>
+                  <td className="px-4 py-2">{row.tanggalTerbit}</td>
+                  <td className="px-4 py-2">{row.nominal}</td>
                   <td className="px-4 py-2">
-                    <StatusBadge status={row.statusKonfirmasi} />
+                    <StatusBadge status={row.status} />
                   </td>
                   <td className="px-4 py-2">
-                    <StatusBadge status={row.statusPayroll} />
-                  </td>
-                  <td className="px-4 py-2">
-                    <Button variant="primary" onClick={() => setSelected(row)}>
+                    <Button onClick={() => setSelected(row)}>
                       Lihat Detail
                     </Button>
                   </td>
@@ -85,8 +83,8 @@ export default function PayrollList() {
         </ComponentCard>
 
         {selected && (
-          <ComponentCard title="Detail Penggajian">
-            <PayrollDetail item={selected} onClose={() => setSelected(null)} />
+          <ComponentCard title="Detail Invoice">
+            <InvoiceDetail item={selected} onClose={() => setSelected(null)} />
           </ComponentCard>
         )}
       </div>
@@ -97,11 +95,13 @@ export default function PayrollList() {
 /* 🔹 Badge Status */
 function StatusBadge({ status }: { status: string }) {
   const colors =
-    status === "Dikonfirmasi" || status === "Selesai"
+    status === "Paid"
       ? "bg-green-100 text-green-700"
-      : status === "Pending" || status === "Proses"
+      : status === "Final"
+      ? "bg-blue-100 text-blue-700"
+      : status === "Draft"
       ? "bg-yellow-100 text-yellow-700"
-      : "bg-red-100 text-red-700";
+      : "bg-red-100 text-red-700"; // Outstanding
 
   return (
     <span className={`px-3 py-1 rounded-full text-xs font-medium ${colors}`}>
@@ -111,39 +111,42 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 /* 🔹 Detail Komponen */
-function PayrollDetail({
+function InvoiceDetail({
   item,
   onClose,
 }: {
-  item: PayrollItem;
+  item: InvoiceItem;
   onClose: () => void;
 }) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <Info label="No. Invoice" value={item.noInvoice} />
         <Info label="Periode" value={item.periode} />
-        <Info label="Divisi" value={item.divisi} />
-        <Info label="Jumlah Karyawan" value={item.jumlahKaryawan.toString()} />
-        <Info label="Status Konfirmasi" value={item.statusKonfirmasi} />
-        <Info
-          label="Tanggal Konfirmasi"
-          value={item.tanggalKonfirmasi || "-"}
-        />
-        <Info label="Status Payroll" value={item.statusPayroll} />
+        <Info label="Tanggal Terbit" value={item.tanggalTerbit} />
+        <Info label="Nominal" value={item.nominal} />
+        <Info label="Status" value={item.status} />
+        <Info label="Tanggal Bayar" value={item.tanggalBayar || "-"} />
       </div>
 
       <h4 className="font-semibold text-gray-700 dark:text-gray-200">
-        Riwayat Konfirmasi & Feedback
+        Riwayat Konfirmasi
       </h4>
       <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300">
-        <li>15 Sept 2025 – Klien konfirmasi data absensi</li>
-        <li>16 Sept 2025 – Payroll tim memproses data</li>
-        <li>18 Sept 2025 – Data Ready to Pay (RTP)</li>
+        <li>05 Sept 2025 – Draft invoice dikirim ke klien</li>
+        <li>07 Sept 2025 – Klien validasi & konfirmasi draft</li>
+        <li>10 Sept 2025 – Final invoice diterbitkan</li>
+        {item.status === "Paid" && (
+          <li>{item.tanggalBayar} – Pembayaran diterima</li>
+        )}
       </ul>
 
       <div className="flex justify-end">
         <Button variant="outline" size="sm" onClick={onClose}>
           Tutup
+        </Button>
+        <Button size="sm" className="ml-2">
+          Unduh PDF
         </Button>
       </div>
     </div>

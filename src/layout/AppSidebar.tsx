@@ -46,31 +46,36 @@ const navItems: NavItem[] = [
     icon: <ListIcon />,
     subItems: [
       { name: "Daftar Kontrak", path: "/kontrak", pro: false },
-      { name: "Pengajuan Kontrak", path: "/pengajuan-kontrak", pro: false },
+      // { name: "Pengajuan Kontrak", path: "/pengajuan-kontrak", pro: false },
     ],
   },
   {
     name: "Absensi",
     icon: <DocsIcon />,
     subItems: [
-      { name: "Pengajuan Absen", path: "/pengajuan-absen", pro: false },
-      { name: "Pengajuan Cuti", path: "/pengajuan-cuti", pro: false },
-      { name: "Pengajuan Lembur", path: "/pengajuan-lembur", pro: false },
+      { name: "Absen", path: "/pengajuan-absen", pro: false },
+      { name: "Cuti", path: "/pengajuan-cuti", pro: false },
+      { name: "Lembur", path: "/pengajuan-lembur", pro: false },
     ],
   },
-  {
-    name: "Persetujuan",
-    icon: <TableIcon />,
-    subItems: [
-      { name: "Konfirmasi Absen", path: "/konfirmasi-absen", pro: false },
-      { name: "Konfirmasi Cuti", path: "/konfirmasi-cuti", pro: false },
-      { name: "Konfirmasi Lembur", path: "/konfirmasi-lembur", pro: false },
-    ],
-  },
+  // {
+  //   name: "Persetujuan",
+  //   icon: <TableIcon />,
+  //   subItems: [
+  //     { name: "Konfirmasi Absen", path: "/konfirmasi-absen", pro: false },
+  //     { name: "Konfirmasi Cuti", path: "/konfirmasi-cuti", pro: false },
+  //     { name: "Konfirmasi Lembur", path: "/konfirmasi-lembur", pro: false },
+  //   ],
+  // },
   {
     name: "Penggajian",
     icon: <TableIcon />,
     path: "/basic-tables",
+  },
+  {
+    name: "Invoicing",
+    icon: <TableIcon />,
+    path: "/basic-tables2",
   },
 ];
 

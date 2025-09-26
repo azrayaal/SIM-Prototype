@@ -13,6 +13,7 @@ import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
 // import Calendar from "./pages/Calendar";
 import BasicTables from "./pages/Tables/BasicTables";
+import BasicTables2 from "./pages/Tables/BasicTables2";
 import FormElements from "./pages/Forms/FormElements";
 // import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
@@ -72,6 +73,7 @@ export default function App() {
 
             {/* Tables */}
             <Route path="/basic-tables" element={<BasicTables />} />
+            <Route path="/basic-tables2" element={<BasicTables2 />} />
 
             {/* Ui Elements */}
             <Route path="/alerts" element={<Alerts />} />

@@ -24,7 +24,7 @@ const requestData: RequestKaryawan[] = [
     id: 101,
     requestDate: "2025-09-10",
     jumlah: 3,
-    tujuan: "Pengembangan Website Baru",
+    tujuan: "IT SUPPORT",
     deskripsi:
       "Dibutuhkan 3 Frontend Developer untuk mendukung project e-Government dengan deadline ketat.",
     status: "Pending",
@@ -33,7 +33,7 @@ const requestData: RequestKaryawan[] = [
     id: 102,
     requestDate: "2025-09-12",
     jumlah: 2,
-    tujuan: "Penguatan Tim Marketing",
+    tujuan: "MARKETING",
     deskripsi:
       "Butuh tambahan 2 Digital Marketer untuk meningkatkan campaign digital tahun ini.",
     status: "Approved",
@@ -42,7 +42,7 @@ const requestData: RequestKaryawan[] = [
     id: 103,
     requestDate: "2025-09-15",
     jumlah: 5,
-    tujuan: "Ekspansi Cabang Baru",
+    tujuan: "CUSTOMER SERVICE",
     deskripsi: "Request 5 Customer Service untuk cabang baru di Surabaya.",
     status: "Rejected",
   },
@@ -76,11 +76,11 @@ export default function RequestKaryawanTable() {
                 Jumlah
               </TableCell>
               <TableCell isHeader className="px-5 py-3 text-xs text-gray-500">
-                Tujuan
+                Divisi
               </TableCell>
-              <TableCell isHeader className="px-5 py-3 text-xs text-gray-500">
+              {/* <TableCell isHeader className="px-5 py-3 text-xs text-gray-500">
                 Deskripsi
-              </TableCell>
+              </TableCell> */}
               <TableCell isHeader className="px-5 py-3 text-xs text-gray-500">
                 Status
               </TableCell>
@@ -93,22 +93,22 @@ export default function RequestKaryawanTable() {
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
             {requestData.map((req) => (
               <TableRow key={req.id}>
-                <TableCell className="px-5 py-4 text-gray-700 dark:text-white/80">
+                <TableCell className="px-5 py-4 text-center text-gray-700 dark:text-white/80">
                   {req.id}
                 </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500">
+                <TableCell className="px-4 py-3  text-center text-gray-500">
                   {req.requestDate}
                 </TableCell>
-                <TableCell className="px-4 py-3 font-medium text-gray-800 dark:text-white">
+                <TableCell className="px-4 py-3  text-center font-medium text-gray-800 dark:text-white">
                   {req.jumlah} Orang
                 </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500">
+                <TableCell className="px-4 py-3  text-center text-gray-500">
                   {req.tujuan}
                 </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 max-w-[250px] truncate">
+                {/* <TableCell className="px-4 py-3 text-gray-500 max-w-[250px] truncate">
                   {req.deskripsi}
-                </TableCell>
-                <TableCell className="px-4 py-3">
+                </TableCell> */}
+                <TableCell className="px-4 py-3 text-center">
                   <Badge
                     size="sm"
                     color={
