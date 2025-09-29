@@ -12,6 +12,18 @@ interface PayrollItem {
   statusKonfirmasi: "Pending" | "Dikonfirmasi" | "Revisi";
   statusPayroll: "Proses" | "Ready to Pay" | "Selesai";
   tanggalKonfirmasi?: string;
+  workday: number;
+  gajiPokok: number;
+  insentif: number;
+  tunjangan: number;
+  bpjsKetenagakerjaan: number;
+  bpjsKesehatan: number;
+  iuranPensiun: number;
+  total: number;
+  managementFee: number;
+  ppn: number;
+  pph23: number;
+  grandTotal: number;
 }
 
 const dummyPayroll: PayrollItem[] = [
@@ -23,6 +35,18 @@ const dummyPayroll: PayrollItem[] = [
     statusKonfirmasi: "Dikonfirmasi",
     statusPayroll: "Ready to Pay",
     tanggalKonfirmasi: "2025-09-15",
+    workday: 22,
+    gajiPokok: 240000000,
+    insentif: 36000000,
+    tunjangan: 48000000,
+    bpjsKetenagakerjaan: 10176000,
+    bpjsKesehatan: 4800000,
+    iuranPensiun: 4800000,
+    total: 343776000,
+    managementFee: 24064320,
+    ppn: 2406432,
+    pph23: 4812864,
+    grandTotal: 367728888,
   },
   {
     id: 2,
@@ -31,6 +55,18 @@ const dummyPayroll: PayrollItem[] = [
     jumlahKaryawan: 8,
     statusKonfirmasi: "Pending",
     statusPayroll: "Proses",
+    workday: 22,
+    gajiPokok: 160000000,
+    insentif: 24000000,
+    tunjangan: 32000000,
+    bpjsKetenagakerjaan: 6784000,
+    bpjsKesehatan: 3200000,
+    iuranPensiun: 3200000,
+    total: 229184000,
+    managementFee: 16042880,
+    ppn: 1604288,
+    pph23: 3208576,
+    grandTotal: 245152592,
   },
 ];
 
@@ -53,6 +89,7 @@ export default function PayrollList() {
                 <th className="px-4 py-2">Periode</th>
                 <th className="px-4 py-2">Divisi</th>
                 <th className="px-4 py-2">Jumlah Karyawan</th>
+                <th className="px-4 py-2">Total Gaji</th>
                 <th className="px-4 py-2">Status Konfirmasi</th>
                 <th className="px-4 py-2">Status Payroll</th>
                 <th className="px-4 py-2">Aksi</th>
@@ -67,6 +104,9 @@ export default function PayrollList() {
                   <td className="px-4 py-2">{row.periode}</td>
                   <td className="px-4 py-2">{row.divisi}</td>
                   <td className="px-4 py-2">{row.jumlahKaryawan}</td>
+                  <td className="px-4 py-2">
+                    Rp {formatCurrency(row.grandTotal)}
+                  </td>
                   <td className="px-4 py-2">
                     <StatusBadge status={row.statusKonfirmasi} />
                   </td>
@@ -119,11 +159,13 @@ function PayrollDetail({
   onClose: () => void;
 }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Informasi Dasar */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <Info label="Periode" value={item.periode} />
         <Info label="Divisi" value={item.divisi} />
         <Info label="Jumlah Karyawan" value={item.jumlahKaryawan.toString()} />
+        <Info label="Workday" value={item.workday.toString()} />
         <Info label="Status Konfirmasi" value={item.statusKonfirmasi} />
         <Info
           label="Tanggal Konfirmasi"
@@ -132,19 +174,89 @@ function PayrollDetail({
         <Info label="Status Payroll" value={item.statusPayroll} />
       </div>
 
-      <h4 className="font-semibold text-gray-700 dark:text-gray-200">
-        Riwayat Konfirmasi & Feedback
-      </h4>
-      <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300">
-        <li>15 Sept 2025 – Klien konfirmasi data absensi</li>
-        <li>16 Sept 2025 – Payroll tim memproses data</li>
-        <li>18 Sept 2025 – Data Ready to Pay (RTP)</li>
-      </ul>
+      {/* Rincian Gaji */}
+      <div className="border rounded-lg">
+        <h4 className="font-semibold text-gray-700 dark:text-gray-200 p-4 border-b">
+          Rincian Penggajian
+        </h4>
+        <div className="p-4 space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>Gaji Pokok:</span>
+            <span>Rp {formatCurrency(item.gajiPokok)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Insentif:</span>
+            <span>Rp {formatCurrency(item.insentif)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Tunjangan:</span>
+            <span>Rp {formatCurrency(item.tunjangan)}</span>
+          </div>
+          <div className="flex justify-between border-t pt-2">
+            <span>Sub Total:</span>
+            <span>
+              Rp{" "}
+              {formatCurrency(item.gajiPokok + item.insentif + item.tunjangan)}
+            </span>
+          </div>
+        </div>
+      </div>
 
-      <div className="flex justify-end">
+      {/* Biaya BPJS & Iuran */}
+      <div className="border rounded-lg">
+        <h4 className="font-semibold text-gray-700 dark:text-gray-200 p-4 border-b">
+          Biaya BPJS & Iuran
+        </h4>
+        <div className="p-4 space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>BPJS Ketenagakerjaan (4.24%):</span>
+            <span>Rp {formatCurrency(item.bpjsKetenagakerjaan)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>BPJS Kesehatan (2%):</span>
+            <span>Rp {formatCurrency(item.bpjsKesehatan)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Iuran Pensiun (2%):</span>
+            <span>Rp {formatCurrency(item.iuranPensiun)}</span>
+          </div>
+          <div className="flex justify-between border-t pt-2 font-semibold">
+            <span>Total:</span>
+            <span>Rp {formatCurrency(item.total)}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Management Fee & Pajak */}
+      <div className="border rounded-lg">
+        <h4 className="font-semibold text-gray-700 dark:text-gray-200 p-4 border-b">
+          Management Fee & Pajak
+        </h4>
+        <div className="p-4 space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>Management Fee (7%):</span>
+            <span>Rp {formatCurrency(item.managementFee)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>PPN (10%):</span>
+            <span>Rp {formatCurrency(item.ppn)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>PPH 23 (2%):</span>
+            <span>Rp {formatCurrency(item.pph23)}</span>
+          </div>
+          <div className="flex justify-between border-t pt-2 font-bold text-lg">
+            <span>Grand Total:</span>
+            <span>Rp {formatCurrency(item.grandTotal)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-end space-x-2">
         <Button variant="outline" size="sm" onClick={onClose}>
           Tutup
         </Button>
+        <Button size="sm">Unduh Excel</Button>
       </div>
     </div>
   );
@@ -157,4 +269,8 @@ function Info({ label, value }: { label: string; value: string }) {
       <p className="text-gray-800 font-medium dark:text-white">{value}</p>
     </div>
   );
+}
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat("id-ID").format(amount);
 }

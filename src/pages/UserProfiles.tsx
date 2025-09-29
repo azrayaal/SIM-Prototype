@@ -7,8 +7,8 @@ export default function UserProfiles() {
   return (
     <>
       <PageMeta
-        title="React.js Profile Dashboard | Sagara - Next.js Admin Dashboard Template"
-        description="This is React.js Profile Dashboard page for Sagara - React.js Tailwind CSS Admin Dashboard Template"
+        title=" Dashboard | Sagara "
+        description="This is  Dashboard page for Sagara"
       />
       <PageBreadcrumb pageTitle="Profile" />
       {/* <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6"> */}
