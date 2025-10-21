@@ -260,7 +260,7 @@ export default function RequestKaryawanForm() {
           >
             Batal
           </Button>
-          <Button variant="primary" type="submit">
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
             Simpan
           </Button>
         </div>

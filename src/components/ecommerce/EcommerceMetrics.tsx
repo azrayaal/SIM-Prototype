@@ -13,28 +13,28 @@ export default function DashboardMetrics() {
       value: 42,
       icon: <BoxIconLine className="text-gray-800 size-6 dark:text-white/90" />,
       trend: "+5%",
-      trendType: "success",
+      trendType: "success" as const,
     },
     {
       label: "Penggajian Draft",
       value: 12,
       icon: <GroupIcon className="text-gray-800 size-6 dark:text-white/90" />,
       trend: "-2%",
-      trendType: "error",
+      trendType: "error" as const,
     },
     {
       label: "Outstanding Invoice",
       value: "Rp 320jt",
       icon: <BoxIconLine className="text-gray-800 size-6 dark:text-white/90" />,
       trend: "+12%",
-      trendType: "error",
+      trendType: "error" as const,
     },
     {
       label: "Pengajuan Karyawan",
       value: 8,
       icon: <GroupIcon className="text-gray-800 size-6 dark:text-white/90" />,
       trend: "+3",
-      trendType: "success",
+      trendType: "success" as const,
     },
   ];
 

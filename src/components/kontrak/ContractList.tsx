@@ -1,6 +1,5 @@
 import { Link } from "react-router";
 import Button from "../ui/button/Button";
-import Badge from "../ui/badge/Badge";
 
 interface Kontrak {
   id: number;
@@ -105,8 +104,12 @@ export default function RequestKontrakList() {
               <td className="px-3 py-2 text-center space-x-2">
                 {req.kontrakList.length === 1 ? (
                   <>
-                    <Button color="success">Approve</Button>
-                    <Button color="error">Reject</Button>
+                    <Button className="bg-green-600 hover:bg-green-700 text-white">
+                      Approve
+                    </Button>
+                    <Button className="bg-red-600 hover:bg-red-700 text-white">
+                      Reject
+                    </Button>
                   </>
                 ) : (
                   <Link to={`/kontrak/${req.id}`}>
